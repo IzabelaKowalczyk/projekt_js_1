@@ -1,24 +1,35 @@
 {
-  "name": "my-app",
+  "name": "projekt1",
   "version": "1.0.0",
-  "description": "",
+  "description": "pierwszy projekt",
+  "license": "ISC",
+  "author": "banka",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-   
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "build": "babel my-app/src/ --out-dir dist/",
+    "minify": "terser dist/index.js -o dist/index.min.js --compress --mangle --source-map",
+    "clean": "rm -rf dist/",
+    "release": "npm run clean && npm run lint && npm run build && npm run minify",
+    "dev": "babel my-app/src/ --out-dir dist/ --watch",
+    "deploy": "gh-pages -d dist",
+    "deploy:prod": "rsync -avz --delete dist/ user@serwer.pl:/var/www/app/"
   },
-  "keywords": [],
-  "author": "Izabela",
-  "license": "ISC",
-  "type": "module", 
+  "dependencies": {
+    "typescript": "^5.9.3"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.28.6",
-    "@babel/core": "^7.29.0",
-    "@babel/preset-env": "^7.29.0",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "eslint": "^10.0.3",
     "globals": "^17.4.0",
-    "uglify-js": "^3.19.3"
+    "typescript-eslint": "^8.57.0",
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
+    "uglify-js": "^3.19.3",
+    "terser": "^5.19.1"
   }
 }
